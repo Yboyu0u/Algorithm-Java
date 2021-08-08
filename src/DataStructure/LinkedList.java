@@ -29,6 +29,37 @@ public class LinkedList {
     private Node head;
     int count;
 
+    public static void main(String[] args) {
+
+        LinkedList list = new LinkedList();
+        list.addElement("A");
+        list.addElement("B");
+        list.addElement("C");
+        list.printAll();
+        list.insertElement(3, "D");
+        list.printAll();
+        list.removeElement(0);
+        list.printAll();
+        list.removeElement(1);
+        list.printAll();
+
+        list.insertElement(0, "A-1");
+        list.printAll();
+        System.out.println(list.getSize());
+
+        list.removeElement(0);
+        list.printAll();
+        System.out.println(list.getSize());
+
+        list.removeAll();
+        list.printAll();
+        list.addElement("A");
+        list.printAll();
+        System.out.println(list.getElement(0));
+        list.removeElement(0);
+    }
+
+
     public LinkedList(){
         head = null;
         count = 0;
@@ -145,5 +176,9 @@ public class LinkedList {
     public boolean isEmpty(){
         if(head == null) return true;
         else return false;
+    }
+
+    public int getSize(){
+        return count;
     }
 }

@@ -21,6 +21,9 @@
 - Last in First Out 
 - 가장 나중에 입력된 자료가 가장 먼저 출력되는 자료구조 
 - push, pop, 연산 
+- 맨 마지막 위치(top)에서만 자료를 추가, 삭제, 꺼내올 수 있음
+- 함수의 메모리는 호출 순서에 따른 stack 구조 
+- jdk 클래스: Stack 
 
 **4.큐(Queue)**  
 - First in First Out 
