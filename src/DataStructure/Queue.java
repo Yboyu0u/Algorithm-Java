@@ -12,6 +12,22 @@ public class Queue extends LinkedList implements IQueue {
     Node front;
     Node rear;
 
+    public static void main(String[] args) {
+
+        Queue listQueue = new Queue();
+        listQueue.enQueue("A");
+        listQueue.enQueue("B");
+        listQueue.enQueue("C");
+        listQueue.enQueue("D");
+        listQueue.enQueue("E");
+
+        System.out.println("dequeue:"+listQueue.deQueue());
+        listQueue.printAll();
+
+        System.out.println("hello" == ("hel"+"lo"));
+    }
+
+
     public Queue(){
         front = null;
         rear = null;
@@ -21,6 +37,10 @@ public class Queue extends LinkedList implements IQueue {
     public void enQueue(String data) {
         Node newNode;
         if(isEmpty()){
+            newNode = addElement(data);
+            front = newNode;
+            rear=newNode;
+        }else{
             newNode = addElement(data);
             rear=newNode;
         }
@@ -34,6 +54,7 @@ public class Queue extends LinkedList implements IQueue {
         }
         String data = front.getData();
         front = front.next;
+        removeElement(0);
         if(front == null){
             rear = null;
         }
