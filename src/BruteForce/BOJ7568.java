@@ -10,7 +10,7 @@ public class BOJ7568 {
     static int n;
     static int[][] people = new int[2][51];
     static int[] grades = new int[51];
-    static int grade;
+
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         n = sc.nextInt();

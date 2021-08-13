@@ -1,4 +1,4 @@
-package Base.레벨게임;
+package Base.gameOfLevel;
 
 public abstract class PlayerLevel {
 
