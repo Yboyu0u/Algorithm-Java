@@ -30,7 +30,6 @@ public class BOJ9663 {
             for(int i=0; i<n; i++){ //x
                ch = false;
                 for(int j=0; j<count; j++){ //확인
-
                     if(ans[1][j] == i){ //아래
                         ch = true;
                         break;
@@ -51,11 +50,3 @@ public class BOJ9663 {
         }
     }
 }
-
-//class Coord{
-//    int x,y;
-//    public Coord(int y, int x){
-//        this.x = x;
-//        this.y = y;
-//    }
-//}
