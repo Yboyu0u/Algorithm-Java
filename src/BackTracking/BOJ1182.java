@@ -17,7 +17,7 @@ public class BOJ1182 {
     static String str;
     static int[] ans = new int[21];
     static int noc;
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException{
         str = br.readLine();
         st = new StringTokenizer(str);
         n = Integer.parseInt(st.nextToken());
@@ -32,8 +32,8 @@ public class BOJ1182 {
         tracking(0,0,0);
         System.out.println(noc);
     }
-    static void tracking(int num, int count, int sum) {
-        if (count>0 && sum == s) {
+    static void tracking(int num, int count, int sum){
+        if (count>0 && sum == s){
             noc++;
         }
         for(int i=num; i<n; i++){
