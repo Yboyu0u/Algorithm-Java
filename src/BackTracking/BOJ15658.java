@@ -70,13 +70,10 @@ public class BOJ15658 {
             max = Math.max(sum,max);
             min = Math.min(sum,min);
         }else{
+            String prev = "a";
             for(int i=0; i<count; i++){
-                String prev = "a";
-                if(i!=0){
-                    prev = op[i-1];
-                }
-                System.out.print(prev + " ");
                 if(check[i] == false && !prev.equals(op[i])){
+                    prev = op[i];
                     check[i] = true;
                     if(op[i].equals("+")){
                         tracking(cnt+1, sum+arr[cnt+1]);

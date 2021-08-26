@@ -10,14 +10,12 @@ import java.util.StringTokenizer;
 
 public class BOJ15663 {
     static int n,m;
-    static int count;
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
     static String str;
     static StringTokenizer st;
     static int[] arr;
     static int[] ans;
-    static boolean[] dup = new boolean[10000];
     static boolean[] check;
 
     public static void main(String[] args) throws IOException {
