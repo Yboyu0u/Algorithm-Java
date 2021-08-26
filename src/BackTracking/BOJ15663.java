@@ -31,23 +31,11 @@ public class BOJ15663 {
         check = new boolean[n];
         str = br.readLine();
         st = new StringTokenizer(str);
-
         for(int i=0; i<n; i++){
-            boolean ch = false;
-            int a = Integer.parseInt(st.nextToken());
-            for(int j=0; j<i; j++){
-                if(a==arr[j]){
-                    dup[a] = true;
-                    ch=true;
-                    break;
-                }
-            }
-            if(ch == false){
-                arr[count] = a;
-                count++;
-            }
+            arr[i] = Integer.parseInt(st.nextToken());
         }
-        Arrays.sort(arr,0,count);
+
+        Arrays.sort(arr,0,n);
 
         tracking(0,0);
         bw.flush();
@@ -61,17 +49,14 @@ public class BOJ15663 {
             }
             bw.newLine();
         }else{
-            for(int i=0; i<count; i++){ // 중복이 있다면 check를 하지 않는다.
-                if(check[i] == false){
-                    if(dup[arr[i]] == true){
-                        ans[cnt] = arr[i];
-                        tracking(idx+1,cnt+1);
-                    }else{
-                        check[i] = true;
-                        ans[cnt] = arr[i];
-                        tracking(idx+1,cnt+1);
-                        check[i] = false;
-                    }
+            int prev = 0;
+            for(int i=0; i<n; i++){ // 중복이 있다면 check를 하지 않는다.
+                if(check[i] == false && arr[i] != prev){
+                    check[i] = true;
+                    ans[cnt] = arr[i];
+                    prev = ans[cnt];
+                    tracking(idx+1,cnt+1);
+                    check[i] = false;
                 }
             }
         }
