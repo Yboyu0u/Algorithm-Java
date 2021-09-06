@@ -13,7 +13,6 @@ import java.util.StringTokenizer;
 
 class Coord{
     int y,x;
-
     public Coord(int y, int x) {
         this.y = y;
         this.x = x;
