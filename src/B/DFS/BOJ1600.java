@@ -12,10 +12,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.StringTokenizer;
 
 public class BOJ1600 {
 
-    static class Move{
+    static class Move {
         int y;
         int x;
         int dis;
@@ -30,128 +31,74 @@ public class BOJ1600 {
     }
 
 
-    static int k,w,h; // w:x, h:y
+    static int k, w, h; // w:x, h:y
     static int[][] arr;
-    static boolean[][] visited;
-    static int[] dy = {-1,1,0,0};
-    static int[] dx = {0,0,-1,1};
+    static boolean[][][] visited;
+    static int[] dy = {-1, 1, 0, 0};
+    static int[] dx = {0, 0, -1, 1};
+    static int[] ddy = {-2, -2, -1, -1, 1, 1, 2, 2};
+    static int[] ddx = {-1, 1, -2, 2, -2, 2, -1, 1};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String str;
+        StringTokenizer st;
+
         k = Integer.parseInt(br.readLine());
-        String[] str = br.readLine().split(" ");
-        w = Integer.parseInt(str[0]);
-        h = Integer.parseInt(str[1]);
-
+        str = br.readLine();
+        st = new StringTokenizer(str);
+        w = Integer.parseInt(st.nextToken());
+        h = Integer.parseInt(st.nextToken());
         arr = new int[h][w];
-        visited = new boolean[h][w];
+        visited = new boolean[h][w][31];
 
-        for(int i=0; i<h; i++){
-            str = br.readLine().split(" ");
-            for(int j=0; j<w; j++){
-                arr[i][j] = Integer.parseInt(str[j]);
+        for (int i = 0; i < h; i++) {
+            String[] string = br.readLine().split(" ");
+            for (int j = 0; j < w; j++) {
+                arr[i][j] = Integer.parseInt(string[j]);
             }
         }
 
+//        visited[0][0][0] = true;
         monkey();
-
     }
 
-    static void monkey(){
+    static void monkey() {
         Queue<Move> q = new LinkedList<>();
-        q.add(new Move(0,0,0,0));
-        visited[0][0] = true;
+        q.add(new Move(0, 0, 0, k));
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             Move p = q.poll();
+            int y = p.y;
+            int x = p.x;
+            int dis = p.dis;
+            int horseCnt = p.horseCnt;
 
-            for(int i=0; i<4; i++){
-                int qy = p.y+dy[i];
-                int qx = p.x+dx[i];
+            if (x < 0 || x >= w || y < 0 || y >= h) continue;
+            if(arr[y][x] == 1) continue;
 
-                if(qy>=0 && qy<h && qx>=0 && qx<w){
-                    // 원숭이의 움직임
-                    if(visited[qy][qx] == false && arr[qy][qx] == 0){
-                        visited[qy][qx] = true;
+            if (y == h - 1 && x == w - 1) {
+                System.out.println(dis);
+                return;
+            }
 
-                        if(qy == h-1 && qx == w-1){
-                            System.out.println(p.dis+1);
-                            return;
-                        }
+            if (visited[y][x][horseCnt]) continue;
+            visited[y][x][horseCnt] = true;
 
-                        q.add(new Move(qy,qx,p.dis+1,p.horseCnt));
-                    }
-                    //말의 움직임
-                    if(p.horseCnt < k){
-                        if(i==0 || i==1){ // 상 하
-                            int qlx = qx-1;
-                            int qrx = qx+1;
-                            int qqy = qy-1;
-                            if(i==1){
-                                qqy = qy+1;
-                            }
-                            if(qqy>=0 && qqy<h){
-                                if(qlx>=0 && qlx<w){
-                                    if(visited[qqy][qlx] = false && arr[qqy][qlx] == 0){
-                                        visited[qqy][qlx] = true;
+            for (int i = 0; i < 4; i++) {
+                int nextY = y + dy[i];
+                int nextX = x + dx[i];
 
-                                        if(qqy == h-1 && qlx == w-1){
-                                            System.out.println(p.dis+1);
-                                            return;
-                                        }
+                q.add(new Move(nextY, nextX, dis + 1, horseCnt));
+            }
 
-                                        q.add(new Move(qqy,qlx,p.dis+1,p.horseCnt+1));
-                                    }
-                                }
-                                if(qrx>=0 && qrx<w){
-                                    if(visited[qqy][qrx] == false && arr[qqy][qrx] == 0){
-                                        visited[qqy][qrx] = true;
+            if (horseCnt == 0) continue;
 
-                                        if(qqy == h-1 && qrx == w-1){
-                                            System.out.println(p.dis+1);
-                                            return;
-                                        }
+            for (int i = 0; i < 8; i++) {
+                int nextY = y + ddy[i];
+                int nextX = x + ddx[i];
 
-                                        q.add(new Move(qqy,qrx,p.dis+1,p.horseCnt+1));
-                                    }
-                                }
-                            }
-                        }else{ // 좌 우
-                            int qty = qy-1;
-                            int qby = qy+1;
-                            int qqx = qx-1;
-                            if(i==3){
-                                qqx = qx+1;
-                            }
-                            if(qqx>=0 && qqx<w){
-                                if(qty>=0 && qty<h){
-                                    if(visited[qty][qqx] = false && arr[qty][qqx] == 0){
-                                        visited[qty][qqx] = true;
-
-                                        if(qty == h-1 && qqx == w-1){
-                                            System.out.println(p.dis+1);
-                                            return;
-                                        }
-
-                                        q.add(new Move(qty,qqx,p.dis+1,p.horseCnt+1));
-                                    }
-                                }
-                                if(qby>=0 && qby<h){
-                                    if(visited[qby][qqx] = false && arr[qby][qqx] == 0){
-                                        visited[qby][qqx] = true;
-
-                                        if(qby == h-1 && qqx == w-1){
-                                            System.out.println(p.dis+1);
-                                            return;
-                                        }
-
-                                        q.add(new Move(qby,qqx,p.dis+1,p.horseCnt+1));
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                q.add(new Move(nextY, nextX, dis + 1, horseCnt - 1));
             }
         }
         System.out.println(-1);

@@ -86,5 +86,4 @@ public class BOJ1600Sol {
         System.out.println(-1);
         return;
     }
-
 }
