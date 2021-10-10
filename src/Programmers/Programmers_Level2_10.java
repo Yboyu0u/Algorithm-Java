@@ -10,17 +10,26 @@ package Programmers;
 // 모든 음식의 스코빌 지수를 k 이상으로 만들기 위해 섞어야 하는 최소 횟수를 return
 
 
-import java.util.Arrays;
 import java.util.PriorityQueue;
-
 class Solution {
     public int solution(int[] scoville, int K) {
         int answer = 0;
         PriorityQueue<Integer> minHeap = new PriorityQueue<>();
 
+        for(int food: scoville){
+            minHeap.add(food);
+        }
 
-
-
+        while(!minHeap.isEmpty() && minHeap.peek()<K){
+            if(answer>=scoville.length-1){
+                answer = -1;
+                break;
+            }
+            int first = minHeap.poll();
+            int second = minHeap.poll();
+            minHeap.add(scov(first,second));
+            answer++;
+        }
 
         return answer;
     }
@@ -31,8 +40,8 @@ class Solution {
 
 public class Programmers_Level2_10 {
     public static void main(String[] args){
-        int[] scovile = {1,0};
-        int k = 1;
+        int[] scovile = {1,2,3,9,10,12};
+        int k = 7;
         System.out.println(new Solution().solution(scovile,k));
     }
 }
