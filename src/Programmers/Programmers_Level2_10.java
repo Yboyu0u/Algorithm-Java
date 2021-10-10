@@ -11,34 +11,33 @@ package Programmers;
 
 
 import java.util.PriorityQueue;
-class Solution {
-    public int solution(int[] scoville, int K) {
-        int answer = 0;
-        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
-
-        for(int food: scoville){
-            minHeap.add(food);
-        }
-
-        while(!minHeap.isEmpty() && minHeap.peek()<K){
-            if(answer>=scoville.length-1){
-                answer = -1;
-                break;
-            }
-            int first = minHeap.poll();
-            int second = minHeap.poll();
-            minHeap.add(scov(first,second));
-            answer++;
-        }
-
-        return answer;
-    }
-    public int scov(int a, int b) {
-        return (a>b) ? b+(a*2) : a+(b*2);
-    }
-}
-
 public class Programmers_Level2_10 {
+    private static class Solution {
+        public int solution(int[] scoville, int K) {
+            int answer = 0;
+            PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+
+            for(int food: scoville){
+                minHeap.add(food);
+            }
+
+            while(!minHeap.isEmpty() && minHeap.peek()<K){
+                if(answer>=scoville.length-1){
+                    answer = -1;
+                    break;
+                }
+                int first = minHeap.poll();
+                int second = minHeap.poll();
+                minHeap.add(scov(first,second));
+                answer++;
+            }
+
+            return answer;
+        }
+        public int scov(int a, int b) {
+            return (a>b) ? b+(a*2) : a+(b*2);
+        }
+    }
     public static void main(String[] args){
         int[] scovile = {1,2,3,9,10,12};
         int k = 7;
