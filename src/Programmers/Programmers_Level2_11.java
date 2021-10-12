@@ -15,54 +15,57 @@ package Programmers;
 
 
 import java.util.LinkedList;
-class Document{
-    int name;
-    int priority;
-
-    public Document(int name, int priority) {
-        this.name = name;
-        this.priority = priority;
-    }
-}
-
-class Solution {
-    public int solution(int[] priorities, int location) {
-        LinkedList<Document> docs = new LinkedList<>();
-        int answer = 0;
-
-        // 클래스 List에 넣는다
-        for(int i=0; i<priorities.length; i++){
-            docs.add(new Document(i,priorities[i]));
-        }
-
-        while(docs.size()>0){
-            answer++;
-            Document maxDoc = docs.get(0);
-            int beRevIdx = 0;
-            for(int i=1; i<docs.size(); i++){
-                Document comDoc = docs.get(i);
-                if(maxDoc.priority < comDoc.priority){
-                    maxDoc = comDoc;
-                    beRevIdx = i;
-                }
-            }
-            int name = docs.get(beRevIdx).name;
-            if(location == name){
-                break;
-            }
-            docs.remove(beRevIdx);
-            for(int j=0; j<beRevIdx; j++){
-                Document temp = docs.get(0);
-                docs.remove(0);
-                docs.addLast(temp);
-            }
-        }
-        return answer;
-    }
-}
 
 public class Programmers_Level2_11 {
+    private static class Document{
+        int name;
+        int priority;
+
+        public Document(int name, int priority) {
+            this.name = name;
+            this.priority = priority;
+        }
+    }
+
+    private static class Solution {
+        public int solution(int[] priorities, int location) {
+            LinkedList<Document> docs = new LinkedList<>();
+            int answer = 0;
+
+            // 클래스 List에 넣는다
+            for(int i=0; i<priorities.length; i++){
+                docs.add(new Document(i,priorities[i]));
+            }
+
+            while(docs.size()>0){
+                answer++;
+                Document maxDoc = docs.get(0);
+                int beRevIdx = 0;
+                for(int i=1; i<docs.size(); i++){
+                    Document comDoc = docs.get(i);
+                    if(maxDoc.priority < comDoc.priority){
+                        maxDoc = comDoc;
+                        beRevIdx = i;
+                    }
+                }
+                int name = docs.get(beRevIdx).name;
+                if(location == name){
+                    break;
+                }
+                docs.remove(beRevIdx);
+                for(int j=0; j<beRevIdx; j++){
+                    Document temp = docs.get(0);
+                    docs.remove(0);
+                    docs.addLast(temp);
+                }
+            }
+            return answer;
+        }
+    }
     public static void main(String[] args){
+
+
+
         int[] p = {2, 3, 3, 2, 9, 3, 3};
         int loc = 3;
 
