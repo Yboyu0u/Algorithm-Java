@@ -19,47 +19,46 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-class Solution {
+public class Programmers_Level2_15 {
     static int targetNum;
     static HashMap<String,Integer> map; // 모든 손님의 주문에 대해서 코스 개수 마다 코스가 주문이 얼마나 됐는지를 위한
     static int max;
     static PriorityQueue<String> priorityQueue = new PriorityQueue<>();
-    public String[] solution(String[] orders, int[] course) {
+    private static class Solution {
+        public String[] solution(String[] orders, int[] course) {
 
-        for(int num: course){
-            targetNum = num;
-            map = new HashMap<>();
-            max = 0;
+            for(int num: course){
+                targetNum = num;
+                map = new HashMap<>();
+                max = 0;
 
-            // 1. 손님마다 가 주문들을 num으로 쪼개서 hashmap 에 주문 횟수를 넣는다
-            for(String order: orders){
-                selectMenuByNum(order,0,"");
-            }
+                // 1. 손님마다 가 주문들을 num으로 쪼개서 hashmap 에 주문 횟수를 넣는다
+                for(String order: orders){
+                    selectMenuByNum(order,0,"");
+                }
 
-            // 2. 코스 개수마다 가장 많이 주문된 코스(들)을 queue 에 넣는다
-            for(Map.Entry<String, Integer> entry: map.entrySet()){
-                if(entry.getValue() == max && max>1){
-//                    System.out.print(entry.getKey()+" ");
-                    priorityQueue.offer(entry.getKey());
+                // 2. 코스 개수마다 가장 많이 주문된 코스(들)을 queue 에 넣는다
+                for(Map.Entry<String, Integer> entry: map.entrySet()){
+                    if(entry.getValue() == max && max>1){
+                        priorityQueue.offer(entry.getKey());
+                    }
                 }
             }
-//            System.out.println();
+
+            // 3. queue 의 값들을 answer 에 옮긴다
+            String[] answer = new String[priorityQueue.size()];
+            int cnt = 0;
+            while (!priorityQueue.isEmpty()){
+                answer[cnt++] = priorityQueue.poll();
+            }
+            return answer;
         }
 
-        // 3. queue 의 값들을 answer 에 옮긴다
-        String[] answer = new String[priorityQueue.size()];
-        int cnt = 0;
-        while (!priorityQueue.isEmpty()){
-            answer[cnt++] = priorityQueue.poll();
-        }
-        return answer;
-    }
-
-    public void selectMenuByNum(String order, int idx, String menu){
-        if(menu.length() == targetNum){
-            char[] mn = menu.toCharArray();
-            Arrays.sort(mn);
-            menu = String.copyValueOf(mn);
+        public void selectMenuByNum(String order, int idx, String menu){
+            if(menu.length() == targetNum){
+                char[] mn = menu.toCharArray();
+                Arrays.sort(mn);
+                menu = String.copyValueOf(mn);
 
 //            if(map.containsKey(menu)){
 //                int value = map.get(menu);
@@ -68,17 +67,16 @@ class Solution {
 //                map.put(menu,1);
 //            }
 
-            map.put(menu,map.getOrDefault(menu,0)+1);
-            max = Math.max(max,map.get(menu));
-            return;
-        }
-        for(int i=idx;i<order.length();i++){
-            selectMenuByNum(order,i+1,menu+String.valueOf(order.charAt(i)));
+                map.put(menu,map.getOrDefault(menu,0)+1);
+                max = Math.max(max,map.get(menu));
+                return;
+            }
+            for(int i=idx;i<order.length();i++){
+                selectMenuByNum(order,i+1,menu+String.valueOf(order.charAt(i)));
+            }
         }
     }
-}
 
-public class Programmers_Level2_15 {
     public static void main(String[] args){
         String[] orders = {"XYZ", "XWY", "WXA"};
         int[] course = {2,3,4};
