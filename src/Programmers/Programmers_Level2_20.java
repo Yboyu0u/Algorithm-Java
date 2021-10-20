@@ -35,8 +35,12 @@ class Solution {
         }
 
         //dir: 상하좌우, 0,1,2,3
-        for(int i=0; i<4; i++){
-            cycleCheck(0,0,i,0, grid.length, grid[0].length());
+        for(int k=0; k< grid.length; k++){
+            for(int j=0; j<grid[k].length(); j++){
+                for(int i=0; i<4; i++){
+                    cycleCheck(k,j,i,0, grid.length, grid[0].length());
+                }
+            }
         }
 
         int[] answer = new int[ans.size()];
@@ -56,6 +60,7 @@ class Solution {
             }
             return;
         }
+
         check[y][x][dir] = true;
         char slr = arr[y][x];
         int ny=y;
@@ -127,8 +132,6 @@ public class Programmers_Level2_20 {
         for(int a: answer){
             System.out.print(a+" ");
         }
-
-
     }
 
 }
