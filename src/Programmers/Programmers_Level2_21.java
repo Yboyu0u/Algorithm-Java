@@ -28,90 +28,87 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
 
-class File implements Comparable<File>{
-    String head;
-    Integer number;
-    int idx;
-
-    public void setIdx(int idx) {
-        this.idx = idx;
-    }
-    public File(int idx) {
-        this.idx = idx;
-    }
-
-    public void setHead(String head) {
-        this.head = head;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    @Override
-    public int compareTo(File file) {
-        if(this.head.compareTo(file.head)==0){
-            return this.number.compareTo(file.number);
-        }
-        return this.head.compareTo(file.head);
-    }
-}
-
-class Solution {
-    public String[] solution(String[] files) {
-        ArrayList<File> tFiles = new ArrayList<>();
-
-        for(int i=0; i<files.length; i++){
-            File filee = new File(i);
-            boolean check = false;
-            boolean  numCheck = false;
-            String file = files[i];
-            int numFirstIdx = 0;
-            String head = "";
-            String number = "";
-
-            for(int j=0; j<file.length(); j++){
-                if(String.valueOf(file.charAt(j)).matches("^[0-9]$") && check==false){
-                    head = file.substring(0,j);
-                    filee.setHead(head.toLowerCase(Locale.ROOT));
-                    numFirstIdx = j;
-                    check = true;
-                }
-
-                if(check == true && !(String.valueOf(file.charAt(j)).matches("^[0-9]$"))){
-                    number = file.substring(numFirstIdx,j);
-                    filee.setNumber((Integer.parseInt(number)));
-                    numCheck = true;
-                    break;
-                }
-            }
-
-            if(!numCheck){
-                number = file.substring(numFirstIdx,file.length());
-                filee.setNumber((Integer.parseInt(number)));
-            }
-
-            tFiles.add(filee);
-        }
-
-        // head, number 비교애서 sort
-        Collections.sort(tFiles);
-
-
-        // answer에 넣는다
-        String[] answer = new String[files.length];
-        int cnt = 0;
-        for(File f: tFiles){
-            answer[cnt++] = files[f.idx];
-        }
-
-        return answer;
-    }
-}
-
 
 
 public class Programmers_Level2_21 {
+    private static class File implements Comparable<File>{
+        String head;
+        Integer number;
+        int idx;
+
+        public void setIdx(int idx) {
+            this.idx = idx;
+        }
+        public File(int idx) {
+            this.idx = idx;
+        }
+
+        public void setHead(String head) {
+            this.head = head;
+        }
+
+        public void setNumber(int number) {
+            this.number = number;
+        }
+
+        @Override
+        public int compareTo(File file) {
+            if(this.head.compareTo(file.head)==0){
+                return this.number.compareTo(file.number);
+            }
+            return this.head.compareTo(file.head);
+        }
+    }
+
+    private static class Solution {
+        public String[] solution(String[] files) {
+            ArrayList<File> tFiles = new ArrayList<>();
+
+            for(int i=0; i<files.length; i++){
+                File filee = new File(i);
+                boolean check = false;
+                boolean  numCheck = false;
+                String file = files[i];
+                int numFirstIdx = 0;
+                String head = "";
+                String number = "";
+
+                for(int j=0; j<file.length(); j++){
+                    if(String.valueOf(file.charAt(j)).matches("^[0-9]$") && check==false){
+                        head = file.substring(0,j);
+                        filee.setHead(head.toLowerCase(Locale.ROOT));
+                        numFirstIdx = j;
+                        check = true;
+                    }
+
+                    if(check == true && !(String.valueOf(file.charAt(j)).matches("^[0-9]$"))){
+                        number = file.substring(numFirstIdx,j);
+                        filee.setNumber((Integer.parseInt(number)));
+                        numCheck = true;
+                        break;
+                    }
+                }
+
+                if(!numCheck){
+                    number = file.substring(numFirstIdx,file.length());
+                    filee.setNumber((Integer.parseInt(number)));
+                }
+
+                tFiles.add(filee);
+            }
+
+            Collections.sort(tFiles);
+
+            String[] answer = new String[files.length];
+            int cnt = 0;
+            for(File f: tFiles){
+                answer[cnt++] = files[f.idx];
+            }
+            return answer;
+        }
+    }
+
+
     public static void main(String[] args){
         String[] files = {"F-14", "B-08 Superfortress", "A-10 Thunderbolt II", "F-5 Tomcat","B-50 Superfortress"};
         String[] ans = new Solution().solution(files);
