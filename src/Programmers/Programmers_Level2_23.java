@@ -40,20 +40,16 @@ public class Programmers_Level2_23 {
                 }
             }
         }
-
         public boolean checkPrime(int num){
-            if(num == 1 || num == 0){
-                return false;
-            }
+            if(num == 1 || num == 0) return false;
             int n=2;
             while(n<num){
-                if(num%n == 0){
-                    return false;
-                }
+                if(num%n == 0)return false;
                 n++;
             }
             return true;
         }
+
     }
     public static void main(String[] args){
         String numbers = "011";
