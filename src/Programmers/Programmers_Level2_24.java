@@ -12,69 +12,70 @@ package Programmers;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-class Solution {
-    static int x;
-    static int y;
-    static boolean[] check;
-    static String[][] rels;
-    static int ans;
-    static LinkedList<String> ansList = new LinkedList<>();
-    public int solution(String[][] relation) {
-        rels=relation;
-        check = new boolean[relation[0].length];
-        y = relation.length;
-        x = relation[0].length;
-
-        selectIdx(0,0, "");
-
-        int answer = ans;
-        return answer;
-    }
-
-    public void selectIdx(int idx, int idxCnt, String str){
-        //findCan
-        if(str!=""){
-            if(findCan(str)){
-                for(int i=0; i<ansList.size(); i++){
-                    int c = 0;
-                    for(int j=0; j<str.length(); j++){
-                        if(ansList.get(i).contains(String.valueOf(str.charAt(j)))){
-                            c++;
-                        }
-                    }
-                    if(c==str.length()){
-                        ansList.remove(i);
-                        i--;
-                        ans--;
-                    }
-                }
-                ans++;
-                ansList.add(str);
-                return;
-            }
-        }
-        for(int i=idx; i<x; i++){
-            selectIdx(i+1,idxCnt+1,str+String.valueOf(i));
-        }
-    }
-
-    public boolean findCan(String strs){
-        HashSet<String> set = new HashSet<>();
-        for(int i=0; i<y; i++){
-            String str = "";
-            for(int k=0; k<strs.length(); k++){
-                str=str+rels[i][Integer.parseInt(String.valueOf(strs.charAt(k)))]+".";
-            }
-            if(set.contains(str)){
-                return false;
-            }
-            set.add(str);
-        }
-        return true;
-    }
-}
 
 public class Programmers_Level2_24 {
+    private static class Solution {
+        static int x;
+        static int y;
+        static boolean[] check;
+        static String[][] rels;
+        static int ans;
+        static LinkedList<String> ansList = new LinkedList<>();
+        public int solution(String[][] relation) {
+            rels=relation;
+            check = new boolean[relation[0].length];
+            y = relation.length;
+            x = relation[0].length;
+
+            selectIdx(0,0, "");
+
+            int answer = ans;
+            return answer;
+        }
+
+        public void selectIdx(int idx, int idxCnt, String str){
+            //findCan
+            if(str!=""){
+                if(findCan(str)){
+                    for(int i=0; i<ansList.size(); i++){
+                        int c = 0;
+                        for(int j=0; j<str.length(); j++){
+                            if(ansList.get(i).contains(String.valueOf(str.charAt(j)))){
+                                c++;
+                            }
+                        }
+                        if(c==str.length()){
+                            ansList.remove(i);
+                            i--;
+                            ans--;
+                        }
+                    }
+                    ans++;
+                    ansList.add(str);
+                    return;
+                }
+            }
+            for(int i=idx; i<x; i++){
+                selectIdx(i+1,idxCnt+1,str+String.valueOf(i));
+            }
+        }
+
+        public boolean findCan(String strs){
+            HashSet<String> set = new HashSet<>();
+            for(int i=0; i<y; i++){
+                String str = "";
+                for(int k=0; k<strs.length(); k++){
+                    str=str+rels[i][Integer.parseInt(String.valueOf(strs.charAt(k)))]+".";
+                }
+                if(set.contains(str)){
+                    return false;
+                }
+                set.add(str);
+            }
+            return true;
+        }
+    }
+
     public static void main(String[] args){
         String[][] relations = {{"a", "aa"}, {"aa", "a"}, {"a", "a"}};
         System.out.println(new Solution().solution(relations));
