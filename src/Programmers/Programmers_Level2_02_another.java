@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 
-public class Programmers_Level2_02_ans {
+public class Programmers_Level2_02_another {
     private static class Solution{
         public static String[] solution(String[] record){
             StringTokenizer st;

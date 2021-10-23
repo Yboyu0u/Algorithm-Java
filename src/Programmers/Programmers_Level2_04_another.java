@@ -4,7 +4,7 @@ package Programmers;
 
 
 
-public class Programmers_Level2_04_ans {
+public class Programmers_Level2_04_another {
     private static class Solution{
         public int solution(int[] numbers, int target){
             int answer = 0;

@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
-public class Programmers_Level2_15_ans {
+public class Programmers_Level2_15_another {
     static HashMap<String,Integer> map;
     static int m;
     private static class Solution{

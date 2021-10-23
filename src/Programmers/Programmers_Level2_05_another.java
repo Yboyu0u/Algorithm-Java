@@ -2,7 +2,7 @@ package Programmers;
 
 import java.util.*;
 
-public class Programmers_Level2_05_ans {
+public class Programmers_Level2_05_another {
     private class Solution{
         private int[] solution(int[] progresses, int[] speeds) {
             Queue<Integer> q = new LinkedList<>();

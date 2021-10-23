@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-public class Programmers_Level2_17_ans {
+public class Programmers_Level2_17_another {
     private static class Solution{
         // Set
         // 1. 객체를 중복해서 저장할 수 없다
