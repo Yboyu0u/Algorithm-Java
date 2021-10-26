@@ -13,38 +13,37 @@ package Programmers.Level1;
 // win_nums: 당첨 번호를 담은 배열
 // 당첨 가능한 최고 순위와 최저 순위를 차례대로 배열에 담아 return
 
-class Solution {
-    static int count; // 맞은 개수
-    static int zeorCnt; // 0 개수
-    public int[] solution(int[] lottos, int[] win_nums){
-        // 최고: 0개수 + 맞은 번호 개수
-        // 최저: 맞은 번호 개수
-        for(int lotto: lottos){
-            lotCheck(lotto, win_nums);
-        }
+public class Programmers_Level1_30 {
+    private static class Solution {
+        static int count; // 맞은 개수
+        static int zeorCnt; // 0 개수
+        public int[] solution(int[] lottos, int[] win_nums){
+            // 최고: 0개수 + 맞은 번호 개수
+            // 최저: 맞은 번호 개수
+            for(int lotto: lottos){
+                lotCheck(lotto, win_nums);
+            }
 
-        int[] answer = new int[2];
-        answer[0] = 6-(zeorCnt+count)+1;
-        if(zeorCnt==0 && count==0) answer[0]=6;
-        answer[1] = 6-count+1;
-        if(count==0) answer[1]=6;
-        return answer;
-    }
-    public void lotCheck(int num, int[] win_nums){
-        if(num==0){
-            zeorCnt++;
-            return;
+            int[] answer = new int[2];
+            answer[0] = 6-(zeorCnt+count)+1;
+            if(zeorCnt==0 && count==0) answer[0]=6;
+            answer[1] = 6-count+1;
+            if(count==0) answer[1]=6;
+            return answer;
         }
-        for(int i=0; i<win_nums.length; i++){
-            if(num==win_nums[i]){
-                count++;
+        public void lotCheck(int num, int[] win_nums){
+            if(num==0){
+                zeorCnt++;
                 return;
+            }
+            for(int i=0; i<win_nums.length; i++){
+                if(num==win_nums[i]){
+                    count++;
+                    return;
+                }
             }
         }
     }
-}
-
-public class Programmers_Level1_30 {
     public static void main(String[] args){
 
     }
