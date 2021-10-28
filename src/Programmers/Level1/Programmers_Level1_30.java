@@ -23,7 +23,6 @@ public class Programmers_Level1_30 {
             for(int lotto: lottos){
                 lotCheck(lotto, win_nums);
             }
-
             int[] answer = new int[2];
             answer[0] = 6-(zeorCnt+count)+1;
             if(zeorCnt==0 && count==0) answer[0]=6;
