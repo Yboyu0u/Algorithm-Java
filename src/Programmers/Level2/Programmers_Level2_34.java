@@ -13,9 +13,6 @@ package Programmers.Level2;
 
 import java.util.LinkedList;
 import java.util.Queue;
-
-
-
 public class Programmers_Level2_34 {
     private static class Coord{
         int y;
@@ -72,7 +69,6 @@ public class Programmers_Level2_34 {
 
     public static void main(String[] args){
         int[][] maps = {{1,0,1,1,1},{1,0,1,0,1},{1,0,1,1,1},{1,1,1,0,1},{0,0,0,0,1}};
-
         System.out.println(new Solution().solution(maps));
     }
 }
