@@ -1,7 +1,7 @@
 # Algorithm Study 
 **Algorithm with Java** 
 
-## Code Convention
+## Commit Convention
 
 - [add]: 푼 문제
 - [add!!]: 풀었지만 다시 풀어보고 싶은 문제
