@@ -60,7 +60,7 @@ public class Programmers_Level2_20 {
         }
         // 1. cycle check
         public void cycleCheck(int y, int x, int dir, int cnt) {
-            while (!check[y][x][dir]) {
+            while (!check[y][x][dir]){
                 check[y][x][dir] = true;
                 char slr = arr[y][x];
                 int ny = y;
