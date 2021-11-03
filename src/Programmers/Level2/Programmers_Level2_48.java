@@ -6,9 +6,6 @@ package Programmers.Level2;
 // 좌표평면의 경계를 넘어가는 명령어는 무시
 // 게임 캐릭터가 처음 걸어본 길의 길이를 구하여 return
 
-
-
-
 public class Programmers_Level2_48 {
     private static class Solution {
         static int[][][] map = new int[11][11][4];
