@@ -31,8 +31,5 @@ public class Programmers_Level1_54{
         }
     }
     public static void main(String[] args){
-        int a = 100000000;
-        System.out.println(a);
-        new Solution().solution(45);
     }
 }
