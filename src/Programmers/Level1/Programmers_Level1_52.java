@@ -20,6 +20,7 @@ public class Programmers_Level1_52 {
             Arrays.sort(reserve);
             int save=0;
 
+
             for(int i=0; i<lost.length; i++){
                 int lStd = lost[i];
                 int borrowS=-1;
