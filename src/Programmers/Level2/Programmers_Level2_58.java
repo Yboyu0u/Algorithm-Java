@@ -19,24 +19,22 @@ public class Programmers_Level2_58 {
             for(int p: people) list.add(p);
             check = new boolean[people.length];
 
-            Collections.sort(list, new Comparator<Integer>() {
+            Collections.sort(list, new Comparator<Integer>(){
                 @Override
                 public int compare(Integer o1, Integer o2) {
                     return o2-o1;
                 }
             });
 
+            int idx=list.size()-1;
             for(int j=0; j<list.size(); j++){
                 if(check[j]==true) continue;
                 int weight= list.get(j);
 
                 if(weight<limit){
-                    for(int i=list.size()-1; i>=1; i--){
-                        if(check[i]==true) continue;
-                        weight+=list.get(i);
-                        if(weight>limit) break;
-                        check[i]=true;
-                        if(weight==limit) break;
+                    if(weight+list.get(idx)<=limit){
+                        check[idx] = true;
+                        idx--;
                     }
                 }
                 check[j]=true;
