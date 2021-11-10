@@ -16,51 +16,51 @@ package Programmers.Level2;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-class Solution {
-    static HashMap<String,Integer> map = new HashMap<>();
-    static int num=1;
-    static ArrayList<Integer> list = new ArrayList<>();
-    public int[] solution(String msg) {
-        // 1. A~Z 사전 초기화
-        initDic();
-
-        // 2. msg 를 돌면서 사전에 안나오는 거 있으면 그 전 것까지 처리하고 현재꺼 포함 사전에 등록
-        makeLZW(msg);
-
-        int[] answer = new int[list.size()];
-        int idx=0;
-        for(int i: list) answer[idx++]=i;
-
-        return answer;
-    }
-
-    public void initDic(){
-        for(int i=65; i<91; i++) map.put(String.valueOf((char) i),num++);
-    }
-
-    public void makeLZW(String msg){
-        int idx=0;
-
-        while(idx<msg.length()){
-            StringBuilder sb = new StringBuilder();
-            int subIdx=-1;
-            for(int i=idx; i<msg.length(); i++){
-                sb.append(msg.charAt(i));
-                if(!map.containsKey(sb.toString())){
-                    map.put(sb.toString(),num++);
-                    sb.deleteCharAt(sb.length()-1);
-                    subIdx=i;
-                    break;
-                }
-            }
-            list.add(map.get(sb.toString()));
-            if(subIdx==-1) return;
-            idx=subIdx;
-        }
-    }
-}
 
 public class Programmers_Level2_68 {
+    private static class Solution {
+        static HashMap<String,Integer> map = new HashMap<>();
+        static int num=1;
+        static ArrayList<Integer> list = new ArrayList<>();
+        public int[] solution(String msg) {
+            // 1. A~Z 사전 초기화
+            initDic();
+
+            // 2. msg 를 돌면서 사전에 안나오는 거 있으면 그 전 것까지 처리하고 현재꺼 포함 사전에 등록
+            makeLZW(msg);
+
+            int[] answer = new int[list.size()];
+            int idx=0;
+            for(int i: list) answer[idx++]=i;
+
+            return answer;
+        }
+
+        public void initDic(){
+            for(int i=65; i<91; i++) map.put(String.valueOf((char) i),num++);
+        }
+
+        public void makeLZW(String msg){
+            int idx=0;
+
+            while(idx<msg.length()){
+                StringBuilder sb = new StringBuilder();
+                int subIdx=-1;
+                for(int i=idx; i<msg.length(); i++){
+                    sb.append(msg.charAt(i));
+                    if(!map.containsKey(sb.toString())){
+                        map.put(sb.toString(),num++);
+                        sb.deleteCharAt(sb.length()-1);
+                        subIdx=i;
+                        break;
+                    }
+                }
+                list.add(map.get(sb.toString()));
+                if(subIdx==-1) return;
+                idx=subIdx;
+            }
+        }
+    }
     public static void main(String[] args){
         new Solution().solution("KAKAO");
     }
