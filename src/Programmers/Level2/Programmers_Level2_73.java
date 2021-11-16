@@ -21,59 +21,55 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
-class User{
-    String msg;
-    String id;
-
-    public User(String msg, String id) {
-        this.msg = msg;
-        this.id = id;
-    }
-}
-
-
-class Solution {
-    public String[] solution(String[] record) {
-        Map<String,String> map = new HashMap<>();
-        ArrayList<User> list = new ArrayList<>();
-
-        // 1. record 를 분해해서 map(아이디와 닉네임) 과 list(msg 와 아이디) 에 넣는다.
-            // 1-1. change 라면 map의 닉네임 값 바꾼다. Leave면 map에는 넣지 않는다.
-        for(String s: record){
-            String[] rec = s.split(" ");
-            String msg = rec[0];
-            String id = rec[1];
-            if(msg.equals("Enter") || msg.equals("Change")){
-                String nickname = rec[2];
-                map.put(id,nickname);
-            }
-            if(msg.equals("Enter") || msg.equals("Leave")){
-                list.add(new User(msg,id));
-            }
-        }
-
-        String[] answer = new String[list.size()];
-        int idx=0;
-        for(User user: list){
-            String msg = user.msg;
-            String nickname = map.get(user.id);
-            StringBuilder sb = new StringBuilder();
-            sb.append(nickname+"님이 ");
-            if(msg.equals("Enter")){
-                sb.append("들어왔습니다.");
-            }else{
-                sb.append("나갔습니다.");
-            }
-
-            answer[idx++] = sb.toString();
-        }
-
-        return answer;
-    }
-}
-
-
 public class Programmers_Level2_73 {
+    private static class User{
+        String msg;
+        String id;
 
+        public User(String msg, String id) {
+            this.msg = msg;
+            this.id = id;
+        }
+    }
+
+
+    private static class Solution {
+        public String[] solution(String[] record) {
+            Map<String,String> map = new HashMap<>();
+            ArrayList<User> list = new ArrayList<>();
+
+            // 1. record 를 분해해서 map(아이디와 닉네임) 과 list(msg 와 아이디) 에 넣는다.
+            // 1-1. change 라면 map의 닉네임 값 바꾼다. Leave면 map에는 넣지 않는다.
+            for(String s: record){
+                String[] rec = s.split(" ");
+                String msg = rec[0];
+                String id = rec[1];
+                if(msg.equals("Enter") || msg.equals("Change")){
+                    String nickname = rec[2];
+                    map.put(id,nickname);
+                }
+                if(msg.equals("Enter") || msg.equals("Leave")){
+                    list.add(new User(msg,id));
+                }
+            }
+
+            String[] answer = new String[list.size()];
+            int idx=0;
+            for(User user: list){
+                String msg = user.msg;
+                String nickname = map.get(user.id);
+                StringBuilder sb = new StringBuilder();
+                sb.append(nickname+"님이 ");
+                if(msg.equals("Enter")){
+                    sb.append("들어왔습니다.");
+                }else{
+                    sb.append("나갔습니다.");
+                }
+
+                answer[idx++] = sb.toString();
+            }
+
+            return answer;
+        }
+    }
 }
