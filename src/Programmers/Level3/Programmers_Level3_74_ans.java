@@ -11,7 +11,8 @@ public class Programmers_Level3_74_ans {
             if(time<=0) return 0;
 
             for(int i=0; i<works.length; i++) {
-                result[i] = (works[i] < totalovertime / works.length) ? works[i] : totalovertime / works.length;
+                result[i] = (works[i] < totalovertime / works.length)
+                        ? works[i] : totalovertime / works.length;
                 time -= result[i];
             }
 
