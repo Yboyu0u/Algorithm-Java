@@ -10,68 +10,51 @@ package Programmers.Level2;
 // 압축했을 때, 배열에 최종적으로 남는 0의 개수와 1의 개수를 배열에 담아서 return
 
 
-class Solution {
-    static int zeroCnt;
-    static int oneCnt;
-    static int[][] mArr;
-
-    public int[] solution(int[][] arr) {
-        int[] answer = new int[2];
-        mArr = arr;
-
-        zip(0,0,arr.length,arr.length, 4);
-
-        answer[0]=zeroCnt;
-        answer[1]=oneCnt;
-        return answer;
-    }
-
-    public void zip(int initY, int initX, int endY, int endX, int dir){
-        boolean check=false;
-        if(initY==endY){
-            if(dir==2 || dir==3){
-                initY++;
-                endY++;
-            }
-            endY++;
-        }
-        if(initX==endX){
-            if(dir==2 || dir==3){
-                initX++;
-                endX++;
-            }
-            endX++;
-        }
-
-        System.out.println(initY+" "+initX+" "+endY+" "+endX);
-        int num = mArr[initY][initX];
-        for(int i=initY; i<endY; i++){
-            for(int j=initX; j<endX; j++){
-                if(mArr[i][j]!=num){
-                    check=true;
-                    break;
-                }
-            }
-            if(check) break;
-        }
-        if(!check){
-            if(mArr[initY][initX] == 1) oneCnt++;
-            else zeroCnt++;
-//
-//            System.out.println(zeroCnt+" "+oneCnt);
-
-            return;
-        }else{
-            // 재귀 0,1,2,3
-            zip(initY,initX,endY/2,endX/2,0);
-            zip(initY,endX/2,endY/2,endX,1);
-            zip(endY/2,initX,endY,endX/2,2);
-            zip(endY/2,endX/2,endY,endX,3);
-        }
-    }
-}
-
 public class Programmers_Level2_80 {
+    private static class Solution {
+        static int[][] mArr;
+        static int zeroCnt;
+        static int oneCnt;
+        public int[] solution(int[][] arr) {
+            int[] answer = new int[2];
+            mArr=arr;
+
+
+            // 1. 확인하고 압축이 안되면 계속 사분할
+            zip(0,0,arr.length, arr.length,arr.length);
+
+            answer[0]=zeroCnt;
+            answer[1]=oneCnt;
+            return answer;
+        }
+
+        public void zip(int startY, int startX, int endY, int endX, int len){
+
+            int cri = mArr[startY][startX];
+            boolean check = false;
+            for(int i=startY; i<endY; i++){
+                for(int j=startX; j<endX; j++){
+                    if(cri!=mArr[i][j]){
+                        check=true;
+                        break;
+                    }
+                }
+                if(check) break;
+            }
+            if(!check){
+                if(cri==1) oneCnt++;
+                else zeroCnt++;
+                return;
+            }
+
+            len/=2;
+            // 0,1,2,3
+            zip(startY,startX,startY+len,startX+len,len);
+            zip(startY,startX+len,startY+len,endX,len);
+            zip(startY+len,startX,endY,startX+len,len);
+            zip(startY+len,startX+len,endY,endX,len);
+        }
+    }
 
     public static void main(String[] args){
         int[][] arr = {{1,1,0,0},{1,0,0,0},{1,0,0,1},{1,1,1,1}};
