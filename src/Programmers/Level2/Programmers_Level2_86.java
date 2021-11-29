@@ -20,22 +20,25 @@ public class Programmers_Level2_86 {
 
 		// 최소 공배수
 		public int lcm(int a, int b) {
-			return a*b/gcd(a,b);
+			return a * b / gcd(a, b);
 		}
 
 		// 최대 공약수
-		public int gcd(int a, int b){
-			if(a<b){
+		public int gcd(int a, int b) {
+			if (a < b) {
 				int temp = a;
-				a=b;
-				b=temp;
+				a = b;
+				b = temp;
 			}
-			if(b==0) return a;
-			else return gcd(b,a%b);
+			if (b == 0)
+				return a;
+			else
+				return gcd(b, a % b);
 		}
 	}
-	public static void main(String[] args){
-		int[] arr = {18,21};
+
+	public static void main(String[] args) {
+		int[] arr = {18, 21};
 		new Solution().solution(arr);
 	}
 }
