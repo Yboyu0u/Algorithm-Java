@@ -6,32 +6,31 @@ package Programmers.Level1;
 import java.util.ArrayList;
 import java.util.Collections;
 
-class Solution {
-	public int[] solution(int[] arr, int divisor) {
-		int[] answer = {};
-		ArrayList<Integer> list = new ArrayList<>();
+public class Programmers_Level1_90 {
+	private static class Solution {
+		public int[] solution(int[] arr, int divisor) {
+			int[] answer = {};
+			ArrayList<Integer> list = new ArrayList<>();
 
-		for(int i=0; i<arr.length; i++){
-			if(arr[i]%divisor==0) list.add(arr[i]);
-		}
+			for(int i=0; i<arr.length; i++){
+				if(arr[i]%divisor==0) list.add(arr[i]);
+			}
 
 
-		int idx = 0;
-		if(list.size()==0){
-			answer = new int[1];
-			answer[idx] = -1;
+			int idx = 0;
+			if(list.size()==0){
+				answer = new int[1];
+				answer[idx] = -1;
+				return answer;
+			}
+
+			Collections.sort(list);
+			answer = new int[list.size()];
+			for(int i: list){
+				answer[idx++] = i;
+			}
+
 			return answer;
 		}
-
-		Collections.sort(list);
-		answer = new int[list.size()];
-		for(int i: list){
-			answer[idx++] = i;
-		}
-
-		return answer;
 	}
-}
-
-public class Programmers_Level1_90 {
 }
