@@ -18,98 +18,97 @@ package Programmers.Level1;
 import java.util.ArrayList;
 import java.util.List;
 
-class Solution {
-	static List<Integer> scoreList = new ArrayList<>();
+public class Programmers_Level1_29_rre {
+	private static class Solution {
+		static List<Integer> scoreList = new ArrayList<>();
 
-	public int solution(String dartResult) {
-		splitResult(dartResult);
+		public int solution(String dartResult) {
+			splitResult(dartResult);
 
-		return scoreList.stream().mapToInt(i -> i).sum();
-	}
+			return scoreList.stream().mapToInt(i -> i).sum();
+		}
 
-	public void splitResult(String dartResult) {
-		StringBuilder score = new StringBuilder();
+		public void splitResult(String dartResult) {
+			StringBuilder score = new StringBuilder();
 
-		for (int i = 0; i < dartResult.length(); i++) {
-			if (score.length() > 1 && Character.isDigit(dartResult.charAt(i))) {
-				calculateScore(score.toString());
-				score = new StringBuilder();
+			for (int i = 0; i < dartResult.length(); i++) {
+				if (score.length() > 1 && Character.isDigit(dartResult.charAt(i))) {
+					calculateScore(score.toString());
+					score = new StringBuilder();
+				}
+
+				score.append(dartResult.charAt(i));
+
+				if (i == dartResult.length() - 1) {
+					calculateScore(score.toString());
+				}
+			}
+		}
+
+		public void calculateScore(String score) {
+			int intScore = 0;
+			for (int i = 0; i < score.length(); i++) {
+				char scoreC = score.charAt(i);
+
+				if (Character.isDigit(scoreC)) {
+					intScore = getNumber(intScore, score, i);
+					continue;
+				}
+
+				intScore = getBonusAndOption(intScore, scoreC);
 			}
 
-			score.append(dartResult.charAt(i));
-
-			if (i == dartResult.length() - 1) {
-				calculateScore(score.toString());
-			}
+			scoreList.add(intScore);
 		}
-	}
 
-	public void calculateScore(String score) {
-		int intScore = 0;
-		for (int i = 0; i < score.length(); i++) {
-			char scoreC = score.charAt(i);
-
-			if (Character.isDigit(scoreC)) {
-				intScore = getNumber(intScore, score, i);
-				continue;
+		public int getNumber(int intScore, String score, int idx) {
+			if (intScore == 10) {
+				return 10;
 			}
 
-			intScore = getBonusAndOption(intScore, scoreC);
+			if (Character.isDigit(score.charAt(idx + 1))) {
+				return 10;
+			}
+
+			return score.charAt(idx) - '0';
 		}
 
-		scoreList.add(intScore);
-	}
+		public int getBonusAndOption(int intScore, char scoreC) {
+			if (scoreC == 'S') {
+				return intScore;
+			}
 
-	public int getNumber(int intScore, String score, int idx) {
-		if (intScore == 10) {
-			return 10;
+			if (scoreC == 'D') {
+				return intScore * intScore;
+			}
+
+			if (scoreC == 'T') {
+				return intScore * intScore * intScore;
+			}
+			return getOption(intScore, scoreC);
 		}
 
-		if (Character.isDigit(score.charAt(idx + 1))) {
-			return 10;
-		}
+		public int getOption(int intScore, char scoreC) {
+			if (scoreC == '*') {
+				handleStar();
+				intScore *= 2;
+			}
 
-		return score.charAt(idx) - '0';
-	}
+			if (scoreC == '#') {
+				intScore = -intScore;
+			}
 
-	public int getBonusAndOption(int intScore, char scoreC) {
-		if (scoreC == 'S') {
 			return intScore;
 		}
 
-		if (scoreC == 'D') {
-			return intScore * intScore;
-		}
-
-		if (scoreC == 'T') {
-			return intScore * intScore * intScore;
-		}
-		return getOption(intScore, scoreC);
-	}
-
-	public int getOption(int intScore, char scoreC) {
-		if (scoreC == '*') {
-			handleStar();
-			intScore *= 2;
-		}
-
-		if (scoreC == '#') {
-			intScore = -intScore;
-		}
-
-		return intScore;
-	}
-
-	public void handleStar() {
-		if (scoreList.size() > 0) {
-			int prevScore = scoreList.get(scoreList.size() - 1);
-			scoreList.remove(scoreList.size() - 1);
-			scoreList.add(prevScore * 2);
+		public void handleStar() {
+			if (scoreList.size() > 0) {
+				int prevScore = scoreList.get(scoreList.size() - 1);
+				scoreList.remove(scoreList.size() - 1);
+				scoreList.add(prevScore * 2);
+			}
 		}
 	}
-}
-
-public class Programmers_Level1_29_rre {
 
 	public static void main(String[] args) {
 		System.out.println(new Solution().solution("1D2S3T*"));
