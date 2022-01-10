@@ -1,6 +1,6 @@
 package Programmers.Level1;
 
-public class Programmers_Level_95 {
+public class Programmers_Level1_95 {
 	private static class Solution {
 		public int[] solution(long n) {
 			String str = String.valueOf(n);

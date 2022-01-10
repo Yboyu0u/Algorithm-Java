@@ -12,75 +12,74 @@ package Programmers.Level1;
 import java.util.ArrayList;
 import java.util.Collections;
 
-class Fail implements Comparable<Fail> {
-	public double failure;
-	public int name;
+public class Programmers_Level1_53_re {
+	private static class Fail implements Comparable<Fail> {
+		public double failure;
+		public int name;
 
-	public Fail(int name) {
-		this.failure = 0;
-		this.name = name;
-	}
-
-	@Override
-	public int compareTo(Fail o) {
-		if (this.failure < o.failure) {
-			return 1;
+		public Fail(int name) {
+			this.failure = 0;
+			this.name = name;
 		}
 
-		if (this.failure > o.failure) {
-			return -1;
-		}
+		@Override
+		public int compareTo(Fail o) {
+			if (this.failure < o.failure) {
+				return 1;
+			}
 
-		return 0;
-	}
-}
+			if (this.failure > o.failure) {
+				return -1;
+			}
 
-class Solution {
-	public static ArrayList<Fail> list = new ArrayList<>();
-
-	public int[] solution(int N, int[] stages) {
-		initList(N);
-
-		for (int i = 1; i < N + 1; i++) {
-			calculateFailure(i, stages);
-		}
-
-		Collections.sort(list);
-
-		int[] answer = new int[N];
-		int idx = 0;
-		for (int i = 0; i < N; i++) {
-			answer[idx++] = list.get(i).name;
-		}
-
-		return answer;
-	}
-
-	public void initList(int N) {
-		for (int i = 0; i < N; i++) {
-			list.add(new Fail(i + 1));
+			return 0;
 		}
 	}
 
-	public void calculateFailure(int stage, int[] stages) {
-		double denominator = 0;
-		double numerator = 0;
+	private static class Solution {
+		public static ArrayList<Fail> list = new ArrayList<>();
 
-		for (int j = 0; j < stages.length; j++) {
-			if (stage <= stages[j]) { // 분모
-				denominator++;
+		public int[] solution(int N, int[] stages) {
+			initList(N);
 
-				if (stage == stages[j]) { // 분자
-					numerator++;
-				}
+			for (int i = 1; i < N + 1; i++) {
+				calculateFailure(i, stages);
+			}
+
+			Collections.sort(list);
+
+			int[] answer = new int[N];
+			int idx = 0;
+			for (int i = 0; i < N; i++) {
+				answer[idx++] = list.get(i).name;
+			}
+
+			return answer;
+		}
+
+		public void initList(int N) {
+			for (int i = 0; i < N; i++) {
+				list.add(new Fail(i + 1));
 			}
 		}
 
-		list.get(stage - 1).failure = numerator / denominator;
-	}
-}
+		public void calculateFailure(int stage, int[] stages) {
+			double denominator = 0;
+			double numerator = 0;
 
-public class Programmers_Level1_53_re {
+			for (int j = 0; j < stages.length; j++) {
+				if (stage <= stages[j]) { // 분모
+					denominator++;
+
+					if (stage == stages[j]) { // 분자
+						numerator++;
+					}
+				}
+			}
+
+			list.get(stage - 1).failure = numerator / denominator;
+		}
+	}
 	public static void main(String[] args) {
 		int[] arr = {2, 1, 2, 6, 2, 4, 3, 3};
 		new Solution().solution(5,arr);
