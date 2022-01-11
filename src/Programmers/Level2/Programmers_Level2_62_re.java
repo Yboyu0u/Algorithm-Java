@@ -25,6 +25,7 @@ public class Programmers_Level2_62_re {
 
 		public void checkCache(String city, int cacheSize) {
 			int option = -1;
+
 			if (cache.contains(city)) {
 				option = 0;
 				answer++;
